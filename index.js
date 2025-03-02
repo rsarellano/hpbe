@@ -6,14 +6,19 @@ import express from "express"
 import typeDefs from "./graphql/typeDefs/index.js"
  
 
+const userRoutes = require('./routes/users/userRoutes.js')
+
 
 const app = express();
+
  
 const server = new ApolloServer({
   typeDefs,
   // resolvers,
 })
 
+
+app.use('/api', userRoutes)
 
 
 async function startServer() {
