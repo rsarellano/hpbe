@@ -4,7 +4,7 @@ import { startStandaloneServer } from "@apollo/server/standalone"
 import { buildSchema } from "graphql"
 import express from "express"
 import typeDefs from "./graphql/typeDefs/index.js"
- 
+import { expressMiddleware } from "@apollo/server/express4";
 
 
 const app = express();
@@ -18,7 +18,7 @@ const server = new ApolloServer({
 
 async function startServer() {
   await server.start();
-  server.applyMiddleware({ app });
+  app.use("graphql", expressMiddleware(server))
 
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
